@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: todoui
+  labels:
+    app: todoui
+spec:
+  selector:
+    app: todoui
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoui
+  labels:
+    app: todoui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoui
+  template:
+    metadata:
+      labels:
+        app: todoui
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "todoui"
+        dapr.io/app-port: "3000"
+    spec:
+      containers:
+      - name: todoui
+        image: vladdplat/todoui:latest
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Always

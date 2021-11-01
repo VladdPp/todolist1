@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoback
+  labels:
+    app: todobaback
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoback
+  template:
+    metadata:
+      labels:
+        app: todoback
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "addapp"
+        dapr.io/app-port: "8081"
+    spec:
+      containers:
+      - name: todoback
+        image: vladdplat/todoback:latest
+        ports:
+        - containerPort: 8081
+        imagePullPolicy: Always
