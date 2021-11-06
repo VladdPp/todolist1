@@ -4,9 +4,8 @@ import "./styles/Addbar.css";
 class AddBar extends React.Component {
   addItem = event => {
     if (event.key === "Enter") {
-      fetch(`http://localhost:8081/item/create/${event.target.value}`).then(
-        alert("Bug: Reload The Page To View Changes")
-      );
+      fetch(`http://localhost:8081/item/create/${event.target.value}`)
+      window.location.reload(); 
     }
   };
   
