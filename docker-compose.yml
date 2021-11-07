@@ -1,0 +1,11 @@
+version: "3"
+services:
+  go-api:
+    build: ./todoBackend
+    ports:
+      - 8081:8081
+  react-app:
+    build: ./todoui
+    stdin_open: true
+    ports:
+      - 3000:3000
